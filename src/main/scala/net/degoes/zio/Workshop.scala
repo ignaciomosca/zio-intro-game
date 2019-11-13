@@ -11,7 +11,7 @@ object HelloWorld extends App {
     * Implement a simple "Hello World" program using the effect returned by `putStrLn`.
     */
   def run(args: List[String]): ZIO[ZEnv, Nothing, Int] =
-    ZIO.succeed(0)
+    putStrLn("Hello World!") *> ZIO.succeed(0)
 }
 
 object ErrorConversion extends App {
@@ -30,7 +30,7 @@ object ErrorConversion extends App {
     * Using `ZIO#orElse` or `ZIO#fold`, have the `run` function compose the
     * preceding `failed` effect into the effect that `run` returns.
     */
-  def run(args: List[String]): ZIO[ZEnv, Nothing, Int] = ???
+  def run(args: List[String]): ZIO[ZEnv, Nothing, Int] = failed.orElse(putStrLn("About to fail...")) *> IO.succeed(0)
 }
 
 object PromptName extends App {
@@ -44,7 +44,11 @@ object PromptName extends App {
     * Implement a simple program that asks the user for their name (using
     * `getStrLn`), and then prints it out to the user (using `putStrLn`).
     */
-  def run(args: List[String]): ZIO[ZEnv, Nothing, Int] = ???
+  def run(args: List[String]): ZIO[ZEnv, Nothing, Int] = getStrLn
+  .flatMap(name => putStrLn(name))
+  .run *> IO.succeed(0)
+  
+  
 }
 
 object ZIOTypes {
