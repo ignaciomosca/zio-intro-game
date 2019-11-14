@@ -59,11 +59,11 @@ object ZIOTypes {
     *
     * Provide definitions for the ZIO type aliases below.
     */
-  type Task[+A] = ???
-  type UIO[+A] = ???
-  type RIO[-R, +A] = ???
-  type IO[+E, +A] = ???
-  type URIO[-R, +A] = ???
+  type Task[+A] = ZIO[Any, Throwable, A]
+  type UIO[+A] = ZIO[Any, Nothing, A]
+  type RIO[-R, +A] = ZIO[R, Throwable, A]
+  type IO[+E, +A] = ZIO[Any, E, A]
+  type URIO[-R, +A] = ZIO[R, Nothing, A]
 }
 
 object NumberGuesser extends App {
