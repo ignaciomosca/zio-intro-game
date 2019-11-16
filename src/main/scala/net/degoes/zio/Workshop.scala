@@ -80,8 +80,13 @@ object NumberGuesser extends App {
     * Choose a random number (using `nextInt`), and then ask the user to guess
     * the number, feeding their response to `analyzeAnswer`, above.
     */
-  def run(args: List[String]): ZIO[ZEnv, Nothing, Int] =
-    ???
+    def run(args: List[String]): ZIO[ZEnv, Nothing, Int] = (for {
+      _ <- putStrLn("Please guess a number")
+      number <- nextInt
+      guess <- getStrLn    
+      _ <- analyzeAnswer(number, guess)
+    } yield ()).run *> IO.succeed(0)
+
 }
 
 object AlarmApp extends App {
